@@ -16,23 +16,6 @@ function renderHours() {
 
     for (var i = 0; i < workHours.length; i++) {
 
-        // var hourEl = $("<div>");
-        // hourEl.addClass("oneHour");
-        // hourEl.attr("data-name", JSON.stringify(workHours[i]));
-        // hourEl.text(workHours[i]);
-        // $("#hourBlocks").append(hourEl);
-
-        // var calNum = parseInt(workHours[i]);
-
-        // var textInput = $("<input>");
-        // textInput.attr("type", "text");
-        // $("#hourBlocks").append(textInput);
-
-        // var saveButton =$("<button>");
-        // saveButton.attr("saveBtn","saveBtn i:hover"); ///How do I add the hover
-        // saveButton.text("SAVE")
-        // $("#hourBlocks").append(saveButton);
-
         var row = $("<div>");
         row.addClass("row");
         row.addClass("border");
@@ -46,6 +29,7 @@ function renderHours() {
         
         var inputCol = $("<div>");
         var textArea = $("<textarea>")
+        textArea.attr("id", "textarea-"+ parseInt(workHours[i]));
         inputCol.addClass("col-md-8");
         // inputCol.addClass("border");
         inputCol.addClass("m-auto");
@@ -63,11 +47,11 @@ function renderHours() {
         saveCol.addClass("text-center");
         saveCol.append(saveBtn);
 
-
-
         row.append(timeCol, inputCol, saveCol);
         $("#hourBlocks").append(row);
 
+
+         // statement sets the color depeneding on the hour
         var calNum = parseInt(workHours[i]);
 
         if (calNum === hour) {
@@ -84,12 +68,23 @@ function renderHours() {
     }
 
 }
-$(document).on("click", ".saveBtn", function(){
-var time = $(this).attr("id")
-console.log(time) 
 
-var value = $(this).parent().siblings("textarea").val()
-console.log(value)
+function renderLastRegistered() {
+
+var time = localStorage.getItem("inputField");
+
+}
+
+
+$(document).on("click", ".saveBtn", function(){
+event.preventDefault();
+
+var time = $(this).attr("id");
+
+var inputField = $("#textarea-"+ time) .val();
+localStorage.setItem(time, inputField);
+
+renderLastRegistered();
 
 })
 
